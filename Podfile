@@ -5,6 +5,7 @@ target 'RxSwiftBasicUsage+API' do
   use_frameworks!
   pod 'RxSwift', '3.0.0-rc.1'
   pod 'RxCocoa', '3.0.0-rc.1'
+  pod 'RxOptional'
   pod 'Alamofire'
 end
 

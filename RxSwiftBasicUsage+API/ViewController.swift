@@ -8,25 +8,64 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import Alamofire
+import RxOptional
 
 class ViewController: UIViewController {
     let disposeBag = DisposeBag()
     let httpClient = HTTPClient()
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var button: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        zipSample()
+        textFieldSample()
+        buttonSample()
     }
     
-    func zipSample() {
+    private func textFieldSample() {
+        textField.rx.text
+            .filterNil()                //textField.rx.text sends <String?> events. Here I ignore any nil to have only <String> events
+            .distinctUntilChanged()     //When textField starts or ends beeing first responder it sends current text as <String> event. DistinctUntilChanged will propagete only those string which are diffrent than previous one.
+            .debounce(0.3, scheduler: MainScheduler.instance)  //Here we wait 0.3 seconds to be sure that user doesn't want to tap multiple times
+            .subscribe(onNext: { [weak self] text in
+                self?.search(withQuery: text);
+            }).addDisposableTo(disposeBag)
+    }
+    
+    private func buttonSample() {
+        button.rx.tap
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.zipSample()
+            }).addDisposableTo(disposeBag)
+    }
+    
+    private func zipSample() {
         let dummyParameter = 1
         Observable.zip(httpClient.rx.firstResource(dummyParameter), httpClient.rx.secondResource()) { ($0, $1) }
             .subscribe(onNext: { response1, response2 in
-                print("\n****************************")
+                print("\n****************************\n[\(Date())]:\n")
                 print(response1, response2, separator:"\n")
                 print("****************************")
             }).addDisposableTo(disposeBag)
+    }
+    
+    private func isFollowedByMe() -> Bool {
+        return false
+    }
+    
+    private func follow() {
+        print("[\(Date())]: &&& I start to follow")
+    }
+    
+    private func unfollow() {
+        //unfollow
+    }
+    
+    private func search(withQuery query: String) {
+        print("[\(Date())]: ### Searching with query: \(query)")
     }
 }
 
