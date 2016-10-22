@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Alamofire
-import RxOptional
 import RxSwiftExt
 
 class ViewController: UIViewController {
@@ -27,7 +26,7 @@ class ViewController: UIViewController {
     
     private func textFieldSample() {
         textField.rx.text
-            .filterNil()                //textField.rx.text sends <String?> events. Here I ignore any nil to have only <String> events
+            .orEmpty                    //textField.rx.text sends <String?> events. Here I ignore any nil to have only <String> events
             .distinctUntilChanged()     //When textField starts or ends beeing first responder it sends current text as <String> event. DistinctUntilChanged will propagete only those string which are diffrent than previous one.
             .debounce(0.3, scheduler: MainScheduler.instance)  //Here we wait 0.3 seconds to be sure that user doesn't want to tap multiple times
             .subscribe(onNext: { [weak self] text in
