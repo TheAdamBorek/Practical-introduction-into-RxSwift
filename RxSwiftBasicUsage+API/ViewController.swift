@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import Alamofire
 import RxOptional
+import RxSwiftExt
 
 class ViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -120,7 +121,7 @@ extension Reactive where Base: HTTPClient {
             return Disposables.create() {
                 reqeust.cancel();
             }
-        }
+        }.retry(.exponentialDelayed(maxCount: 3, initial: 2, multiplier: 1)) //Retry if receive an error. Maximum 3 attepts. First retry after 2 second, then after 4 seconds, then after 8 secnods
     }
     
     func secondResource() -> Observable<String> {
@@ -129,7 +130,7 @@ extension Reactive where Base: HTTPClient {
             return Disposables.create() {
                 reqeust.cancel();
             }
-        }
+        }.retry(.exponentialDelayed(maxCount: 3, initial: 2, multiplier: 1))
     }
     
     func sendResponse<T>(into observer: AnyObserver<T>) -> ((Result<T>) -> Void) {

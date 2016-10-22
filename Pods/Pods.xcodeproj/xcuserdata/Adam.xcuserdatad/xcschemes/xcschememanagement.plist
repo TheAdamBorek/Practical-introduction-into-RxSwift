@@ -29,10 +29,15 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RxSwiftExt.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>64A80CE2D6898DDFCEAC1AF819DB22A1</key>
+		<key>2C5684090C5E6C6A16E604561CDE483B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,17 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9589D05DDD7531C44966F9235732472A</key>
+		<key>A0DF8B32C06E605502BFA52D70F29F1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D075FF22F67DA636FC8F6F45BCD3C505</key>
+		<key>D81FD8A6E9BFFEFBBA0296D9016C4542</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DE1D4D0597B10A6FE2989649A30A1ACF</key>
+		<key>D9C227CCA706D3936134326EEE1DD684</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB1FC4FC54691743584D147A754338CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
